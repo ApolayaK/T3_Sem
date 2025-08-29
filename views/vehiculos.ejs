@@ -1,0 +1,29 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Vehículos</title>
+</head>
+<body>
+  <h1>Lista de Vehículos</h1>
+  <table border="1">
+    <tr>
+      <th>ID</th>
+      <th>Marca</th>
+      <th>Modelo</th>
+      <th>Color</th>
+      <th>Precio</th>
+      <th>Placa</th>
+    </tr>
+    <% vehiculos.forEach(v => { %>
+      <tr>
+        <td><%= v.id %></td>
+        <td><%= v.marca %></td>
+        <td><%= v.modelo %></td>
+        <td><%= v.color %></td>
+        <td><%= v.precio %></td>
+        <td><%= v.placa %></td>
+      </tr>
+    <% }) %>
+  </table>
+</body>
+</html>
