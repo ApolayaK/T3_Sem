@@ -1,23 +1,27 @@
 require('dotenv').config();
 const express = require('express');
+const path = require('path');
 const pool = require('./db');
 
 const app = express();
 app.use(express.json());
+app.use(express.urlencoded({ extended: true }));
 
-// Configurar motor de vistas EJS
+// Configuración de vistas
 app.set('view engine', 'ejs');
+app.set('views', path.join(__dirname, 'views'));
 
 // Puerto
 const port = process.env.PORT || 3000;
 
-// Manejo de errores
+// Función para manejar errores de BD
 const handDbError = (res, error) => {
   console.error('Error de acceso BD:', error);
   res.status(500).json({ error: 'Error interno en el servidor' });
 };
 
 // ---------------- API JSON ----------------
+
 // GET (listar en JSON)
 app.get('/api/vehiculos', async (req, res) => {
   try {
@@ -42,7 +46,7 @@ app.post('/api/vehiculos', async (req, res) => {
       [marca, modelo, color, precio, placa]
     );
 
-    res.status(200).json({ id: result.insertId });
+    res.status(201).json({ id: result.insertId });
   } catch (error) {
     if (error.code === 'ER_DUP_ENTRY') {
       return res.status(409).json({ error: 'La placa ya existe' });
@@ -96,6 +100,12 @@ app.delete('/api/vehiculos/:id', async (req, res) => {
 });
 
 // ---------------- VISTAS (EJS) ----------------
+
+// Redirigir raíz al listado
+app.get('/', (req, res) => {
+  res.redirect('/vehiculos');
+});
+
 // Listado en HTML
 app.get('/vehiculos', async (req, res) => {
   try {

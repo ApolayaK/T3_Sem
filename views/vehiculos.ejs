@@ -1,29 +1,69 @@
 <!DOCTYPE html>
-<html>
+<html lang="es">
 <head>
-  <title>Vehículos</title>
+  <meta charset="UTF-8">
+  <title>Gestión de Vehículos</title>
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap@5.3.0/dist/css/bootstrap.min.css" rel="stylesheet">
+  <link href="https://cdn.jsdelivr.net/npm/bootstrap-icons/font/bootstrap-icons.css" rel="stylesheet">
 </head>
-<body>
-  <h1>Lista de Vehículos</h1>
-  <table border="1">
-    <tr>
-      <th>ID</th>
-      <th>Marca</th>
-      <th>Modelo</th>
-      <th>Color</th>
-      <th>Precio</th>
-      <th>Placa</th>
-    </tr>
-    <% vehiculos.forEach(v => { %>
-      <tr>
-        <td><%= v.id %></td>
-        <td><%= v.marca %></td>
-        <td><%= v.modelo %></td>
-        <td><%= v.color %></td>
-        <td><%= v.precio %></td>
-        <td><%= v.placa %></td>
-      </tr>
-    <% }) %>
-  </table>
+<body class="bg-light">
+  <div class="container mt-5">
+    
+    <div class="d-flex justify-content-between align-items-center mb-4">
+      <h2 class="fw-bold text-dark">Gestión de Vehículos</h2>
+      <a href="/vehiculos/nuevo" class="btn btn-primary">
+        <i class="bi bi-plus-lg"></i> Añadir Vehículo
+      </a>
+    </div>
+
+    <div class="card shadow-sm border-0">
+      <div class="card-body">
+        <table class="table table-hover align-middle">
+          <thead class="table-dark">
+            <tr>
+              <th>ID</th>
+              <th>Marca</th>
+              <th>Modelo</th>
+              <th>Color</th>
+              <th>Precio</th>
+              <th>Placa</th>
+              <th class="text-center">Acciones</th>
+            </tr>
+          </thead>
+          <tbody>
+            <% if (vehiculos.length > 0) { %>
+              <% vehiculos.forEach(v => { %>
+                <tr>
+                  <td><%= v.id %></td>
+                  <td><%= v.marca %></td>
+                  <td><%= v.modelo %></td>
+                  <td><span class="badge bg-secondary"><%= v.color %></span></td>
+                  <td>S/. <%= v.precio %></td>
+                  <td><%= v.placa %></td>
+                  <td class="text-center">
+                    <!-- Botón Editar -->
+                    <a href="/vehiculos/editar/<%= v.id %>" class="btn btn-sm btn-warning me-2">
+                      <i class="bi bi-pencil-square"></i>
+                    </a>
+                    <!-- Botón Eliminar -->
+                    <form action="/vehiculos/eliminar/<%= v.id %>" method="POST" class="d-inline">
+                      <button type="submit" class="btn btn-sm btn-danger" onclick="return confirm('¿Seguro que deseas eliminar este vehículo?');">
+                        <i class="bi bi-trash"></i>
+                      </button>
+                    </form>
+                  </td>
+                </tr>
+              <% }) %>
+            <% } else { %>
+              <tr>
+                <td colspan="7" class="text-center text-muted">No hay vehículos registrados</td>
+              </tr>
+            <% } %>
+          </tbody>
+        </table>
+      </div>
+    </div>
+
+  </div>
 </body>
 </html>
