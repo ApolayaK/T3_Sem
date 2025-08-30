@@ -65,6 +65,6 @@ npm install express mysql2 dotenv nodemon
 ## Capturas sugeridas
 
 - Thunder Client: mostrar cómo se ven las peticiones GET, POST, PUT, DELETE.
-![Thunder Client](/img/img1.png)
+![Thunder Client](img/img1.png)
 - Vistas Web: capturas de la lista de vehículos, formulario de creación y edición.
-![Vistas Web](/img/img2.png)
+![Vistas Web](img/img2.png)
